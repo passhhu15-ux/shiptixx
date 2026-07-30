@@ -52,8 +52,152 @@ function statusBadge(s) { const cls = ['Delivered','Active','Operational','Conve
 function trackingCard() { return `<div class="tracking-card"><div class="tracking-top"><div><div class="eyebrow" style="color:#a5b4fc">LIVE SHIPMENT</div><b style="font:700 14px Manrope">Blue Dart Express</b></div><span class="live">● LIVE</span></div><div class="awb"><div><b>BD9876543210</b><small>FreshKart → Mumbai · 1.2kg</small></div><span style="color:#f97316;font-size:20px">▣</span></div><div class="route"><div class="route-node active"><i></i><span>Delhi</span></div><div class="route-node"><i></i><span>Mumbai</span></div><div class="route-node"><i></i><span>Kolkata</span></div><div class="route-node"><i></i><span>Bangalore</span></div></div><div style="display:flex;justify-content:space-between;color:#a8b3c7;font-size:11px;border-top:1px solid #334155;padding-top:13px"><span>Picked up 10:32 AM</span><span>ETA Tomorrow</span></div></div>`; }
 
 function renderLanding() {
-  app.innerHTML = `<main class="landing"><nav class="marketing-nav"><div class="logo"><span class="logo-mark">▣</span>Shiptix</div><div class="links"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#about">About</a></div><div class="nav-actions"><button class="btn btn-ghost" data-nav="/login">Log In</button><button class="btn btn-primary" data-nav="/login">Get Started <span>→</span></button></div></nav><section class="hero"><div class="hero-grid"><div><div class="eyebrow">Logistics operating system</div><h1>Precision operations,<br>scaled.</h1><p>One intelligent control centre for D2C brands to book, track and optimise every shipment — without the operational drag.</p><div class="hero-actions"><button class="btn btn-primary" data-nav="/login">Start free trial <span>→</span></button><a class="btn btn-ghost" href="#features">View demo</a></div><div class="hero-proof"><div><strong>&lt; 2 sec</strong><span>Label generation</span></div><div><strong>99.3%</strong><span>API uptime</span></div><div><strong>19K+</strong><span>Pin codes covered</span></div></div></div>${trackingCard()}</div></section><section class="landing-section" id="features"><div class="section-heading"><div class="eyebrow">Everything in one place</div><h2>More control at every mile.</h2><p>Infrastructure that quietly removes the friction from your shipping operations.</p></div><div class="features">${[['⚡','Same-Day Label Generation','Automated AWBs through Blue Dart in a matter of seconds.'],['▥','Unified Shipping Analytics','Volume, costs and delivery performance in one clear view.'],['♙','Granular Role-Based Access','Give each team member exactly the access they need.'],['⌖','Pan-India Coverage','Reach customers across 19,000+ serviceable pin codes.'],['◫','Prepaid Wallet System','A single, transparent wallet for every shipment.'],['◌','24/7 Dedicated Support','A named account manager when your business needs answers.']].map(f=>`<article class="feature"><div class="feature-icon">${f[0]}</div><h3>${f[1]}</h3><p>${f[2]}</p></article>`).join('')}</div></section><section class="stats-bar"><div class="stats-inner"><div><b>50+</b><span>D2C Brands</span></div><div><b>2M+</b><span>Shipments processed</span></div><div><b>₹48Cr+</b><span>Processed value</span></div><div><b>99.3%</b><span>Platform uptime</span></div></div></section><section class="landing-section" id="about"><div class="section-heading"><div class="eyebrow">Trusted by growing teams</div><h2>Built for the brands India buys from.</h2></div><div class="quote-grid"><article class="quote"><p>“Shiptix gave our small operations team the confidence to ship like a much bigger brand.”</p><div class="person"><div class="avatar">RS</div><div><b>Rahul Sharma</b><span>Founder, FreshKart</span></div></div></article><article class="quote"><p>“The wallet and tracking workflow alone saved us hours every week. It just feels considered.”</p><div class="person"><div class="avatar">PM</div><div><b>Priya Menon</b><span>Operations, ZapStyle</span></div></div></article></div></section><section class="inquiry" id="pricing"><div class="inquiry-inner"><div class="eyebrow" style="color:#fdba74">Start a conversation</div><h2>Ready to scale your shipping?</h2><p>Tell us about your brand and our team will get in touch within 24 hours.</p><form id="inquiry-form" class="form-grid"><div class="field"><label>Full Name</label><input required placeholder="Your name"></div><div class="field"><label>Brand / Company</label><input required placeholder="Your brand"></div><div class="field"><label>Email</label><input required type="email" placeholder="you@brand.com"></div><div class="field"><label>Phone</label><input required placeholder="+91 00000 00000"></div><div class="field form-wide"><label>Estimated Monthly Shipments</label><select required><option value="">Select volume</option><option>Under 100</option><option>100–500</option><option>500–2,000</option><option>2,000–10,000</option><option>10,000+</option></select></div><button class="btn btn-primary form-wide" style="width:max-content" type="submit">Submit inquiry <span>→</span></button></form></div></section><footer class="landing-footer"><div><div class="logo"><span class="logo-mark">▣</span>Shiptix</div><div style="margin-top:9px">Logistics, made calmer.</div></div><div class="foot-links"><span>Product</span><span>Company</span><span>Legal</span></div><span>© 2025 Shiptix</span></footer></main>`;
+  const features = [
+    ['⚡','Instant label generation','Automated AWBs across Blue Dart, Delhivery, Xpressbees and more — created in under two seconds.'],
+    ['▥','Unified analytics','Volume, spend and delivery performance for every carrier in one clean, real-time view.'],
+    ['◫','Prepaid wallet','A single transparent wallet powering every shipment, with instant recharges and full ledgers.'],
+    ['♙','Role-based access','Give admins, managers and staff exactly the permissions they need — nothing more.'],
+    ['⌖','Pan-India coverage','Reach customers across 19,000+ serviceable pin codes with smart carrier routing.'],
+    ['⌁','Plug-in integrations','Connect Shopify and your storefront in a click and sync orders automatically.']
+  ];
+  const steps = [
+    ['01','Connect your store','Link Shopify or import orders. Your catalogue and addresses sync in seconds.'],
+    ['02','Book & auto-assign','Rate-shop across carriers and generate labels instantly with auto-assign rules.'],
+    ['03','Track every mile','Follow shipments live, resolve NDRs and reconcile COD from one control centre.']
+  ];
+  const plans = [
+    ['Starter','₹0','For new D2C brands finding their feet.',['Up to 200 shipments / mo','2 carriers','Prepaid wallet','Email support'],false],
+    ['Growth','₹1,499','For scaling brands that ship daily.',['Unlimited shipments','All carriers + auto-assign','Analytics & NDR tools','Priority support','Shopify integration'],true],
+    ['Enterprise','Custom','For high-volume, multi-team operations.',['Everything in Growth','Dedicated account manager','Custom SLAs & pricing','API & webhook access','Role-based teams'],false]
+  ];
+  const quotes = [
+    ['Shiptix cut our label time from minutes to seconds. Our ops team finally stopped drowning in tabs.','Rahul Sharma','Founder, FreshKart','RS'],
+    ['The unified wallet and NDR view alone paid for itself. Delivery success is up 11% this quarter.','Priya Menon','Head of Ops, ZapStyle','PM']
+  ];
+  const carriers = ['Blue Dart','Delhivery','Xpressbees','Ekart','DTDC','Shopify'];
+
+  app.innerHTML = `<main class="landing lp">
+    <nav class="lp-nav">
+      <div class="lp-nav-inner">
+        <button class="logo" data-nav="/"><span class="logo-mark">▣</span>Shiptix</button>
+        <div class="lp-links"><a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></div>
+        <div class="nav-actions"><button class="btn btn-ghost" data-nav="/login">Log in</button><button class="btn btn-primary" data-nav="/login">Get started <span>→</span></button></div>
+      </div>
+    </nav>
+
+    <section class="lp-hero">
+      <div class="lp-hero-inner">
+        <div class="lp-hero-copy">
+          <span class="lp-pill">◆ Logistics operating system for D2C</span>
+          <h1>Ship faster.<br>Track everything.<br><span class="lp-accent">Scale without the chaos.</span></h1>
+          <p>Shiptix is the single control centre where growing brands book, track and optimise every shipment across every carrier — no spreadsheets, no guesswork.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" data-nav="/login">Start free trial <span>→</span></button>
+            <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
+          </div>
+          <div class="lp-proof">
+            <div><strong>&lt; 2 sec</strong><span>Label generation</span></div>
+            <div><strong>99.3%</strong><span>API uptime</span></div>
+            <div><strong>19K+</strong><span>Pin codes covered</span></div>
+          </div>
+        </div>
+        <div class="lp-hero-visual">
+          ${trackingCard()}
+          <div class="lp-float lp-float-a"><span class="lp-float-icon" style="background:#dcfce7;color:#16a34a">✓</span><div><b>Label generated</b><small>AWB BD9876543210</small></div></div>
+          <div class="lp-float lp-float-b"><span class="lp-float-icon" style="background:#fff7ed;color:#f97316">◫</span><div><b>₹4,914.50</b><small>Wallet balance</small></div></div>
+        </div>
+      </div>
+      <div class="lp-trust">
+        <span>Powering shipments with</span>
+        <div class="lp-trust-logos">${carriers.map(c=>`<b>${c}</b>`).join('')}</div>
+      </div>
+    </section>
+
+    <section class="lp-section" id="features">
+      <div class="section-heading center">
+        <div class="eyebrow">Everything in one place</div>
+        <h2>More control at every mile.</h2>
+        <p>Infrastructure that quietly removes the friction from your shipping operations, so your team can focus on growth.</p>
+      </div>
+      <div class="lp-bento">
+        ${features.map((f,i)=>`<article class="lp-card ${i===0?'lp-card-wide':''}"><div class="lp-card-icon">${f[0]}</div><h3>${f[1]}</h3><p>${f[2]}</p></article>`).join('')}
+      </div>
+    </section>
+
+    <section class="lp-how" id="how">
+      <div class="lp-section">
+        <div class="section-heading center">
+          <div class="eyebrow">How it works</div>
+          <h2>Live in three simple steps.</h2>
+          <p>From your first order to your ten-thousandth, Shiptix keeps every shipment moving.</p>
+        </div>
+        <div class="lp-steps">
+          ${steps.map(s=>`<article class="lp-step"><span class="lp-step-num">${s[0]}</span><h3>${s[1]}</h3><p>${s[2]}</p></article>`).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section class="lp-stats">
+      <div class="lp-stats-inner">
+        <div><b>2.4M+</b><span>Shipments processed</span></div>
+        <div><b>1,200+</b><span>D2C brands</span></div>
+        <div><b>19,000+</b><span>Pin codes served</span></div>
+        <div><b>84.3%</b><span>First-attempt delivery</span></div>
+      </div>
+    </section>
+
+    <section class="lp-section">
+      <div class="section-heading center">
+        <div class="eyebrow">Loved by operators</div>
+        <h2>Teams ship calmer with Shiptix.</h2>
+      </div>
+      <div class="lp-quotes">
+        ${quotes.map(q=>`<article class="lp-quote"><p>“${q[0]}”</p><div class="person"><div class="avatar">${q[3]}</div><div><b>${q[1]}</b><span>${q[2]}</span></div></div></article>`).join('')}
+      </div>
+    </section>
+
+    <section class="lp-section" id="pricing">
+      <div class="section-heading center">
+        <div class="eyebrow">Pricing</div>
+        <h2>Simple plans that scale with you.</h2>
+        <p>Start free. Upgrade when you are ready. No lock-in, cancel anytime.</p>
+      </div>
+      <div class="lp-pricing">
+        ${plans.map(p=>`<article class="lp-plan ${p[4]?'featured':''}">${p[4]?'<span class="lp-plan-tag">Most popular</span>':''}<h3>${p[0]}</h3><div class="lp-price">${p[1]}${p[1].startsWith('₹')&&p[1]!=='₹0'?'<small>/mo</small>':''}</div><p class="lp-plan-desc">${p[2]}</p><ul>${p[3].map(x=>`<li><span>✓</span>${x}</li>`).join('')}</ul><button class="btn ${p[4]?'btn-primary':'btn-ghost'} btn-block" data-nav="/login">${p[0]==='Enterprise'?'Talk to sales':'Get started'}</button></article>`).join('')}
+      </div>
+    </section>
+
+    <section class="lp-cta" id="contact">
+      <div class="lp-cta-inner">
+        <div class="lp-cta-copy">
+          <div class="eyebrow" style="color:#fdba74">Get in touch</div>
+          <h2>Ready to take control of your shipping?</h2>
+          <p>Tell us about your brand and our team will set you up with a tailored demo within 24 hours.</p>
+        </div>
+        <form class="lp-form" id="inquiry-form">
+          <div class="field"><label>Full name</label><input name="name" placeholder="Your name" required></div>
+          <div class="field"><label>Work email</label><input name="email" type="email" placeholder="you@company.com" required></div>
+          <div class="field"><label>Brand / company</label><input name="brand" placeholder="Your brand" required></div>
+          <div class="field"><label>Monthly shipments</label><select name="volume"><option>0 – 200</option><option>200 – 1,000</option><option>1,000 – 5,000</option><option>5,000+</option></select></div>
+          <button class="btn btn-primary btn-block" type="submit">Request a demo <span>→</span></button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="lp-footer">
+      <div class="lp-footer-inner">
+        <div class="lp-footer-brand"><div class="logo"><span class="logo-mark">▣</span>Shiptix</div><p>Precision operations, scaled. The logistics operating system for modern D2C brands.</p></div>
+        <div class="lp-footer-cols">
+          <div><h4>Product</h4><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></div>
+          <div><h4>Company</h4><a href="#contact">Contact</a><a href="#">About</a><a href="#">Careers</a></div>
+          <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a></div>
+        </div>
+      </div>
+      <div class="lp-footer-bar"><span>© ${new Date().getFullYear()} Shiptix. All rights reserved.</span><span>Made for brands that move.</span></div>
+    </footer>
+  </main>`;
   $('#inquiry-form').onsubmit = e => { e.preventDefault(); e.target.reset(); toast('Inquiry submitted! Our team will contact you within 24 hours.'); };
+  $$('[data-nav]').forEach(e => e.onclick = () => nav(e.dataset.nav));
 }
 
 function renderLogin() { app.innerHTML = `<main class="login"><section class="login-main"><button class="logo" style="background:transparent;padding:0;text-align:left" data-nav="/"><span class="logo-mark">▣</span>Shiptix</button><div class="login-card"><h1>Log in to your account</h1><p>Welcome back. Please enter your details.</p><form class="login-form" id="login-form"><div class="field"><label>Email address</label><input name="email" type="email" placeholder="you@company.com" required></div><div class="field"><label>Password</label><input name="password" type="password" placeholder="Enter your password" required></div><button class="btn btn-primary" type="submit">Log in <span>→</span></button></form><div class="demo-hint"><b>Demo access</b><br>Try <b>rahul@freshkart.in</b> / <b>Client@123</b><br><span class="muted">Use the other seeded accounts listed in the README to explore each role.</span></div></div></section><aside class="login-visual"> <div>${trackingCard()}<div class="login-quote"><b>Precision operations, scaled.</b><p>&lt; 2 sec label generation&nbsp;&nbsp; · &nbsp;&nbsp;99.3% API uptime&nbsp;&nbsp; · &nbsp;&nbsp;19K+ pin codes</p></div></div></aside></main>`; $('#login-form').onsubmit = login; }
